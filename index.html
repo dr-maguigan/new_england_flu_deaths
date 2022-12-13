@@ -178,69 +178,50 @@ option {
     			var colorScale = makeColorScale(csvData);
 
     			var regions = d3.selectAll(".regions")
-        .transition()
-        .duration(1000)
-        .style("fill", function(d){
-            return choropleth(d.properties, colorScale)
-        });
+        			.transition()
+        			.duration(1000)
+        			.style("fill", function(d){
+            		return choropleth(d.properties, colorScale)
+        		});
 			
 			var bars = chart.selectAll(".bar")
-        .data(csvData)
-        .enter()
-        .append("rect")
-        .sort(function(a, b){
-            return b[expressed]-a[expressed]
-        })
-        .attr("class", function(d){
-            return "bar " + d.adm1_code;
-        })
-        .attr("width", chartInnerWidth / csvData.length - 1);
+        			.data(csvData)
+        			.enter()
+        			.append("rect")
+        			.sort(function(a, b){
+            				return b[expressed]-a[expressed]
+        			})
+        			.attr("class", function(d){
+            				return "bar " + d.adm1_code;
+        			})
+        			.attr("width", chartInnerWidth / csvData.length - 1);
 
-    //CHARTTITLE, YAXIS, AXIS, AND CHARTFRAME BLOCKS
+    			//CHARTTITLE, YAXIS, AXIS, AND CHARTFRAME BLOCKS
 
-    //set bar positions, heights, and colors
-    updateChart(bars, csvData.length, colorScale);
-}; //end of setChart()
+    			//set bar positions, heights, and colors
+    			updateChart(bars, csvData.length, colorScale);
+		}; //end of setChart()
 
-    //...
-
-    //in changeAttribute()...Example 1.5 line 15...re-sort bars
-   var bars = d3.selectAll(".bar")
-        //re-sort bars
-        .sort(function(a, b){
-            return b[expressed] - a[expressed];
-        })
-        .transition() //add animation
-        .delay(function(d, i){
-            return i * 20
-        })
-        .duration(500);
-
-    updateChart(bars, csvData.length, colorScale);
-
-    updateChart(bars, csvData.length, colorScale);
-}; //end of changeAttribute()
-
-//function to position, size, and color bars in chart
-function updateChart(bars, n, colorScale){
-    //position bars
-    bars.attr("x", function(d, i){
-            return i * (chartInnerWidth / n) + leftPadding;
-        })
-        //size/resize bars
-        .attr("height", function(d, i){
-            return 463 - yScale(parseFloat(d[expressed]));
-        })
-        .attr("y", function(d, i){
-            return yScale(parseFloat(d[expressed])) + topBottomPadding;
-        })
-        //color/recolor bars
-        .style("fill", function(d){
-            return choropleth(d, colorScale);
-        });
-	var chartTitle = d3.select(".chartTitle")
-        .text("Number of Flu-Related Deaths in each region");
+		//function to position, size, and color bars in chart
+		function updateChart(bars, n, colorScale){
+    		//position bars
+    			bars.attr("x", function(d, i){
+            			return i * (chartInnerWidth / n) + leftPadding;
+        		})
+        		//size/resize bars
+        		.attr("height", function(d, i){
+            			return 463 - yScale(parseFloat(d[expressed]));
+        		})
+        		.attr("y", function(d, i){
+            			return yScale(parseFloat(d[expressed])) + topBottomPadding;
+        		})
+        		//color/recolor bars
+        		.style("fill", function(d){
+            			return choropleth(d, colorScale);
+        		});
+			var chartTitle = d3.select(".chartTitle")
+        			.text("Number of Flu-Related Deaths in each region");
 		};
 	 </script>
-	</body>
+</body>
 </html>
